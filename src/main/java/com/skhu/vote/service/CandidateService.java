@@ -22,7 +22,7 @@ public class CandidateService {
 		return candidateRepo.findAll();
 	}
 
-	public CANDIDATE insertCandidate(CandidateModel c) {
+	public CANDIDATE insertCandidate(CandidateModel c, int voteId) {
 		CANDIDATE candidate = new CANDIDATE();
 		candidate.setCampName(c.getCampName());
 		candidate.setLeaderName(c.getLeaderName());
@@ -30,7 +30,9 @@ public class CandidateService {
 		candidate.setSubLeaderName(c.getSubLeaderName());
 		candidate.setSubLeaderDeptName(c.getSubLeaderDepName());
 		candidate.setPhoto(c.getPhoto());
-		candidate.setVoteInfo(voteInfoRepo.findAll());
+		candidate.setVoteInfo(voteInfoRepo.findOne(voteId));
+		candidateRepo.save(candidate);
+		return candidate;
 	}
 
 }

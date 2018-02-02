@@ -18,6 +18,4 @@ public class CandidateModel {
 	private String subLeaderDepName;
 	@NotEmpty
 	private String photo;
-	@NotEmpty
-	private int voteId;
 }
