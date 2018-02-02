@@ -23,6 +23,8 @@ public class VOTEINFO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int voteId;
     private String voteName;
+    private int allCount;
+    private int voteCount;
     private Date startTime;
     private Date endTime;
     private int target;

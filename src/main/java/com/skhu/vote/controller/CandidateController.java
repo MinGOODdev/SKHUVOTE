@@ -60,7 +60,7 @@ public class CandidateController {
 
 	// 후보자 삭제
 	@DeleteMapping("{candidateId}")
-	public ResponseEntity<DefaultResponse> userDelete(@PathVariable int candidateId) {
+	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int candidateId) {
 		DefaultResponse response = new DefaultResponse();
 		
 		if (candidateService.findOne(candidateId) == null) {

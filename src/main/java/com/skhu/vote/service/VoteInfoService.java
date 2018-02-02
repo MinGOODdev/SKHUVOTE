@@ -19,8 +19,8 @@ public class VoteInfoService {
 		return voteInfoRepo.findAll();
 	}
 
-	public VOTEINFO findOne(int id) {
-		return voteInfoRepo.findOne(id);
+	public VOTEINFO findOne(int voteId) {
+		return voteInfoRepo.findOne(voteId);
 	}
 
 	public VOTEINFO insertVoteInfo(VoteInfoModel v) {
@@ -28,16 +28,20 @@ public class VoteInfoService {
 		voteInfo.setVoteName(v.getVoteName());
 		voteInfo.setStartTime(v.getStartTime());
 		voteInfo.setEndTime(v.getEndTime());
-
 		voteInfo.setTarget(v.getTarget());
-		// target이 투표 대상(학과)라면 department를 모두 넣어야하는 것 아닌가??
-		// 선거 등록할 때 학과 목록 중 선택해야하니까??
-
 		voteInfoRepo.save(voteInfo);
 		return voteInfo;
 	}
 
-	public void delete(int id) {
-		voteInfoRepo.delete(id);
+	public void delete(int voteId) {
+		voteInfoRepo.delete(voteId);
 	}
+	
+	public double voteRate(int voteId) {
+		double allCount = voteInfoRepo.findOne(voteId).getAllCount();
+		double voteCount = voteInfoRepo.findOne(voteId).getVoteCount();
+		double voteRate = voteCount / allCount * 100;
+		return voteRate;
+	}
+	
 }

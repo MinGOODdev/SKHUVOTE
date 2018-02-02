@@ -61,17 +61,17 @@ public class ElectionController {
 
 	// 선거 삭제
 	@DeleteMapping("{id}")
-	public ResponseEntity<DefaultResponse> voteDelete(@PathVariable int id) {
+	public ResponseEntity<DefaultResponse> voteDelete(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
-		if (voteInfoService.findOne(id) == null) {
+		if (voteInfoService.findOne(voteId) == null) {
 			response.setMsg("해당 선거 정보가 존재하지 않습니다.");
 			response.setStatus(StatusEnum.FAIL);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
 		} else {
 			response.setMsg("해당 선거가 삭제되었습니다.");
 			response.setStatus(StatusEnum.SUCCESS);
-			response.setData(voteInfoService.findOne(id));
-			voteInfoService.delete(id);
+			response.setData(voteInfoService.findOne(voteId));
+			voteInfoService.delete(voteId);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 		}
 	}
