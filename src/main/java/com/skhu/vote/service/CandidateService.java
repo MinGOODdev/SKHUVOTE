@@ -21,6 +21,10 @@ public class CandidateService {
 	public List<CANDIDATE> findAll() {
 		return candidateRepo.findAll();
 	}
+	
+	public CANDIDATE findOne(int candidateId) {
+		return candidateRepo.findOne(candidateId);
+	}
 
 	public CANDIDATE insertCandidate(CandidateModel c, int voteId) {
 		CANDIDATE candidate = new CANDIDATE();
@@ -33,6 +37,10 @@ public class CandidateService {
 		candidate.setVoteInfo(voteInfoRepo.findOne(voteId));
 		candidateRepo.save(candidate);
 		return candidate;
+	}
+	
+	public void delete(int candidateId) {
+		candidateRepo.delete(candidateId);
 	}
 
 }
