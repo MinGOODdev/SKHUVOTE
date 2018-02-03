@@ -35,13 +35,5 @@ public class VoteInfoService {
 
 	public void delete(int voteId) {
 		voteInfoRepo.delete(voteId);
-	}
-	
-	public double voteRate(int voteId) {
-		double allCount = voteInfoRepo.findOne(voteId).getAllCount();
-		double voteCount = voteInfoRepo.findOne(voteId).getVoteCount();
-		double voteRate = voteCount / allCount * 100;
-		return voteRate;
-	}
-	
+	}	
 }
