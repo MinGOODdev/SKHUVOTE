@@ -17,6 +17,7 @@ import com.skhu.vote.domain.CANDIDATE;
 import com.skhu.vote.model.CandidateModel;
 import com.skhu.vote.model.DefaultResponse;
 import com.skhu.vote.model.StatusEnum;
+import com.skhu.vote.repository.CandidateRepository;
 import com.skhu.vote.service.CandidateService;
 
 /*
@@ -29,13 +30,25 @@ public class CandidateController {
 	
 	@Autowired
 	CandidateService candidateService;
+	@Autowired
+	CandidateRepository candidateRepo;
 
-	// 후보자 목록 조회
+	// 후보자 전체 목록 조회
 	@GetMapping("list")
 	public ResponseEntity<DefaultResponse> candidateList() {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(candidateService.findAll());
 		response.setMsg("후보자 목록입니다.");
+		response.setStatus(StatusEnum.SUCCESS);
+		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
+	}
+	
+	// 각 선거별 후보자 목록 조회
+	@GetMapping("list/{voteId}")
+	public ResponseEntity<DefaultResponse> candidateVoteList(@PathVariable int voteId) {
+		DefaultResponse response = new DefaultResponse();
+		response.setData(candidateRepo.findByVoteInfoVoteId(voteId));
+		response.setMsg("해당 선거별 후보자 목록입니다.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
