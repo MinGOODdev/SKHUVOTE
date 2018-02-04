@@ -31,7 +31,7 @@ public class ElectionController {
 	@Autowired
 	VoteInfoRepository voteInfoRepo;
 
-	// 선거 목록 조회
+	// 선거 전체 목록 조회
 	@GetMapping("list")
 	public ResponseEntity<DefaultResponse> voteList() {
 		DefaultResponse response = new DefaultResponse();
@@ -74,7 +74,7 @@ public class ElectionController {
 	}
 
 	// 선거 삭제
-	@DeleteMapping("{id}")
+	@DeleteMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> voteDelete(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
 		if (voteInfoService.findOne(voteId) == null) {
