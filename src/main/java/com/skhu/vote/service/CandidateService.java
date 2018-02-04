@@ -1,5 +1,6 @@
 package com.skhu.vote.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class CandidateService {
 		return candidateRepo.findOne(candidateId);
 	}
 
-	public CANDIDATE insertCandidate(CandidateModel c, int voteId) {
+	public List<CANDIDATE> insertCandidate(CandidateModel c, int voteId) {
+		
+		List<CANDIDATE> list = new ArrayList<>();
+		
+		// 후보자 생성
 		CANDIDATE candidate = new CANDIDATE();
 		candidate.setCampName(c.getCampName());
 		candidate.setLeaderName(c.getLeaderName());
@@ -36,9 +41,20 @@ public class CandidateService {
 		candidate.setPhoto(c.getPhoto());
 		candidate.setVoteInfo(voteInfoRepo.findOne(voteId));
 		candidateRepo.save(candidate);
-		return candidate;
+		list.add(candidate);
+		
+		// 기권이 없을 경우만 각 선거의 기권 생성
+		if(candidateRepo.findByVoteInfoVoteIdAndCampName(voteId, "기권") == null) {
+			System.out.println("아아아");
+			CANDIDATE withdraw = new CANDIDATE();
+			withdraw.setCampName("기권");
+			withdraw.setVoteInfo(voteInfoRepo.findOne(voteId));
+			candidateRepo.save(withdraw);
+			list.add(withdraw);
+		}
+		return list;
 	}
-	
+
 	public void delete(int candidateId) {
 		candidateRepo.delete(candidateId);
 	}

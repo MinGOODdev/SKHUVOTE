@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.skhu.vote.domain.USER;
 import com.skhu.vote.model.DefaultResponse;
@@ -42,12 +43,40 @@ public class UserManageController {
 	 * 유권자 등록 (엑셀 업로드 구현해야함)
 	 * MultipartHttpServletRequest request
 	 */
+//	@PostMapping("upload")
+//	public ResponseEntity<DefaultResponse> upload(@RequestParam("file") MultipartFile excelFile) throws Exception {
+//		DefaultResponse response = new DefaultResponse();
+//		System.out.println("1번째 출력");
+//		
+//		// MultipartFile excelFile = request.getFile("excelFile");
+//		if(excelFile == null || excelFile.isEmpty()) {
+//			throw new RuntimeException("엑셀 파일을 선택해주세요.");
+//		}
+//		File destFile = new File("D:\\" + excelFile.getOriginalFilename());
+//		try {
+//			excelFile.transferTo(destFile);
+//		} catch (IllegalStateException | IOException e) {
+//			throw new RuntimeException(e.getMessage(), e);
+//		}
+//		
+//		List<USER> users = excelService.excelUpload(destFile);
+//		for(USER user : users) {
+//			System.out.println(user.getName());
+//			userRepo.save(user);
+//		}
+//		
+//		response.setData(users);
+//		response.setMsg("엑설이 업로드되었습니다.");
+//		response.setStatus(StatusEnum.SUCCESS);
+//		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);	
+//	}
+	
 	@PostMapping("upload")
-	public ResponseEntity<DefaultResponse> upload(@RequestBody MultipartFile excelFile) throws Exception {
+	public ResponseEntity<DefaultResponse> upload(MultipartHttpServletRequest request) throws Exception {
 		DefaultResponse response = new DefaultResponse();
 		System.out.println("1번째 출력");
 		
-		// MultipartFile excelFile = request.getFile("excelFile");
+		MultipartFile excelFile = request.getFile("excelFile");
 		if(excelFile == null || excelFile.isEmpty()) {
 			throw new RuntimeException("엑셀 파일을 선택해주세요.");
 		}

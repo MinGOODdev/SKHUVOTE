@@ -1,5 +1,7 @@
 package com.skhu.vote.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skhu.vote.domain.CANDIDATE;
 import com.skhu.vote.model.CandidateModel;
 import com.skhu.vote.model.DefaultResponse;
 import com.skhu.vote.model.StatusEnum;
@@ -38,7 +41,8 @@ public class CandidateController {
 	}
 
 	// 후보자 등록 (GET)
-	@GetMapping("create/{voteId}")
+	// 필요없다면 remove
+	@GetMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> candidateCreate(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(new CandidateModel());
@@ -48,11 +52,12 @@ public class CandidateController {
 	}
 
 	// 후보자 등록 (POST)
-	@PostMapping("create/{voteId}")
+	@PostMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> candidateCreate(@RequestBody CandidateModel c, @PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
-		candidateService.insertCandidate(c, voteId);
-		response.setData(c);
+		
+		List<CANDIDATE> list = candidateService.insertCandidate(c, voteId);
+		response.setData(list);
 		response.setMsg("후보자를 등록했습니다.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);

@@ -8,14 +8,14 @@ import lombok.Data;
 public class CandidateModel {
 	@NotEmpty
 	private String campName;
-	@NotEmpty
+//	@NotEmpty
 	private String leaderName;
-	@NotEmpty
+//	@NotEmpty
 	private String leaderDepName;
-	@NotEmpty
+//	@NotEmpty
 	private String subLeaderName;
-	@NotEmpty
+//	@NotEmpty
 	private String subLeaderDepName;
-	@NotEmpty
+//	@NotEmpty
 	private String photo;
 }

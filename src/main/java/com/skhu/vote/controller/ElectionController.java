@@ -39,6 +39,7 @@ public class ElectionController {
 	}
 
 	// 선거 등록 (GET)
+	// 필요없으면 remove
 	@GetMapping("create")
 	public ResponseEntity<DefaultResponse> voteCreate() {
 		DefaultResponse response = new DefaultResponse();
