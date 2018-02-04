@@ -64,8 +64,25 @@ public class CandidateController {
 	}
 
 	// 후보자 삭제
-	@DeleteMapping("{candidateId}")
-	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int candidateId) {
+//	@DeleteMapping("{candidateId}")
+//	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int candidateId) {
+//		DefaultResponse response = new DefaultResponse();
+//		
+//		if (candidateService.findOne(candidateId) == null) {
+//			response.setMsg("해당 유권자는 존재하지 않습니다.");
+//			response.setStatus(StatusEnum.FAIL);
+//			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
+//		} else {
+//			response.setMsg("해당 유권자가 삭제되었습니다.");
+//			response.setStatus(StatusEnum.SUCCESS);
+//			response.setData(candidateService.findOne(candidateId));
+//			candidateService.delete(candidateId);
+//			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
+//		}
+//	}
+	
+	@DeleteMapping("{voteId}/{candidateId}")
+	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int voteId, @PathVariable int candidateId) {
 		DefaultResponse response = new DefaultResponse();
 		
 		if (candidateService.findOne(candidateId) == null) {
@@ -76,7 +93,7 @@ public class CandidateController {
 			response.setMsg("해당 유권자가 삭제되었습니다.");
 			response.setStatus(StatusEnum.SUCCESS);
 			response.setData(candidateService.findOne(candidateId));
-			candidateService.delete(candidateId);
+			candidateService.delete(voteId, candidateId);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 		}
 	}
