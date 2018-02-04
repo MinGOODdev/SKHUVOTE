@@ -43,15 +43,15 @@ public class CandidateController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 	
-	// 각 선거별 후보자 목록 조회
-	@GetMapping("list/{voteId}")
-	public ResponseEntity<DefaultResponse> candidateVoteList(@PathVariable int voteId) {
-		DefaultResponse response = new DefaultResponse();
-		response.setData(candidateRepo.findByVoteInfoVoteId(voteId));
-		response.setMsg("해당 선거별 후보자 목록입니다.");
-		response.setStatus(StatusEnum.SUCCESS);
-		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
-	}
+//	// 각 선거별 후보자 목록 조회
+//	@GetMapping("list/{voteId}")
+//	public ResponseEntity<DefaultResponse> candidateVoteList(@PathVariable int voteId) {
+//		DefaultResponse response = new DefaultResponse();
+//		response.setData(candidateRepo.findByVoteInfoVoteId(voteId));
+//		response.setMsg("해당 선거별 후보자 목록입니다.");
+//		response.setStatus(StatusEnum.SUCCESS);
+//		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
+//	}
 
 	// 후보자 등록 (GET)
 	// 필요없다면 remove

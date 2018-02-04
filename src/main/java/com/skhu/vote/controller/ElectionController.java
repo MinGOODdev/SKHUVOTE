@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skhu.vote.model.DefaultResponse;
 import com.skhu.vote.model.StatusEnum;
 import com.skhu.vote.model.VoteInfoModel;
+import com.skhu.vote.repository.VoteInfoRepository;
 import com.skhu.vote.service.VoteInfoService;
 
 /*
@@ -27,6 +28,8 @@ public class ElectionController {
 
 	@Autowired
 	VoteInfoService voteInfoService;
+	@Autowired
+	VoteInfoRepository voteInfoRepo;
 
 	// 선거 목록 조회
 	@GetMapping("list")
@@ -34,6 +37,16 @@ public class ElectionController {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(voteInfoService.findAll());
 		response.setMsg("선거 목록입니다.");
+		response.setStatus(StatusEnum.SUCCESS);
+		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
+	}
+	
+	// 선거별 목록 조회
+	@GetMapping("list/{voteId}")
+	public ResponseEntity<DefaultResponse> voteDetailList(@PathVariable int voteId) {
+		DefaultResponse response = new DefaultResponse();
+		response.setData(voteInfoRepo.findByVoteId(voteId));
+		response.setMsg("선거별 정보입니다.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
