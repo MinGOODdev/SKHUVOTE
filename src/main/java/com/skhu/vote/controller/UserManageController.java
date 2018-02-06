@@ -20,7 +20,7 @@ import com.skhu.vote.domain.USER;
 import com.skhu.vote.model.DefaultResponse;
 import com.skhu.vote.model.StatusEnum;
 import com.skhu.vote.repository.UserRepository;
-import com.skhu.vote.service.ExcelService;
+import com.skhu.vote.service.UserExcelService;
 import com.skhu.vote.service.UserService;
 
 /*
@@ -36,7 +36,7 @@ public class UserManageController {
 	@Autowired
 	UserRepository userRepo;
 	@Autowired
-	ExcelService excelService;
+	UserExcelService excelService;
 
 	// 유권자 등록 (엑셀 업로드)
 	@PostMapping("upload")

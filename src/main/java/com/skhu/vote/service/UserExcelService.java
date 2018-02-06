@@ -15,7 +15,7 @@ import com.skhu.vote.utils.ExcelRead;
 import com.skhu.vote.utils.ExcelReadOption;
 
 @Service
-public class ExcelService {
+public class UserExcelService {
 
 	@Autowired
 	UserRepository userRepo;
