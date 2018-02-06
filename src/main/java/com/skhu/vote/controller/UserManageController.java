@@ -97,7 +97,6 @@ public class UserManageController {
 		}
 	}
 
-
 	/*
 	 * 유권자 등록 (엑셀 업로드 구현해야함)
 	 * MultipartHttpServletRequest request

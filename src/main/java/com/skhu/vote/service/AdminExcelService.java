@@ -1,6 +1,7 @@
 package com.skhu.vote.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class AdminExcelService {
 			admin.setPassword(SHA512EncryptUtils.encrypt(content.get("C")));	// 비밀번호 암호화
 			admin.setDepartmentName(content.get("D"));
 			admin.setType(content.get("E"));
+			admin.setLastLogin(new Date());
 			admins.add(admin);
 		}
 		return admins;

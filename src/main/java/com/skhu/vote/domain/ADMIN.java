@@ -1,5 +1,7 @@
 package com.skhu.vote.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,4 +16,5 @@ public class ADMIN {
 	private	String password;
 	private String departmentName;
 	private String type;			// 일단 엑셀 업로드로 인해 String으로 변경
+	private Date lastLogin;
 }
