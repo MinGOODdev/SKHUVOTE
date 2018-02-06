@@ -30,7 +30,7 @@ public class AdminExcelService {
 
 			admin.setId(content.get("A"));
 			admin.setName(content.get("B"));
-			admin.setPassword(SHA512EncryptUtils.encrypt(content.get("C")));	// 비밀번호 암호화
+			admin.setPassword(SHA512EncryptUtils.encrypt(content.get("C")));
 			admin.setDepartmentName(content.get("D"));
 			admin.setType(content.get("E"));
 			admin.setLastLogin(new Date());

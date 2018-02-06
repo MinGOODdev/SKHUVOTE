@@ -1,8 +1,9 @@
 package com.skhu.vote.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ import com.skhu.vote.service.UserExcelService;
 import com.skhu.vote.service.UserService;
 
 /*
- * 유권자 명단 관리 CRD
+ * Voter CRD
  */
 
 @RestController
@@ -38,9 +39,9 @@ public class UserManageController {
 	@Autowired
 	UserExcelService excelService;
 
-	// 유권자 등록 (엑셀 업로드)
+	// Voter Registration (Excel Upload)
 	@PostMapping("upload")
-	public ResponseEntity<DefaultResponse> upload(@RequestParam(value="file", required=true) MultipartFile excelFile) throws Exception {
+	public ResponseEntity<DefaultResponse> upload(@RequestParam(value="file", required=true) MultipartFile excelFile, HttpServletRequest request) throws Exception {
 		DefaultResponse response = new DefaultResponse();
 
 		// MultipartFile excelFile = request.getFile("excelFile");
@@ -48,7 +49,8 @@ public class UserManageController {
 			throw new RuntimeException("엑셀 파일을 선택해주세요.");
 		}
 
-		File destFile = new File("D:\\" + excelFile.getOriginalFilename());		// D드라이브에 업로드한 파일 저장
+		java.io.File destFile = new java.io.File(request.getSession().getServletContext().getRealPath("resources")+"\\"+excelFile.getOriginalFilename());
+		// File destFile = new File("D:\\" + excelFile.getOriginalFilename());
 
 		try {
 			excelFile.transferTo(destFile);
@@ -69,7 +71,7 @@ public class UserManageController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-	// 유권자 목록 조회
+	// Voter List
 	@GetMapping("list")
 	public ResponseEntity<DefaultResponse> userList() {
 		DefaultResponse response = new DefaultResponse();
@@ -79,7 +81,7 @@ public class UserManageController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-	// 유권자 삭제
+	// Voter Delete
 	@DeleteMapping("{id}")
 	public ResponseEntity<DefaultResponse> userDelete(@PathVariable String id) {
 		DefaultResponse response = new DefaultResponse();
@@ -98,7 +100,7 @@ public class UserManageController {
 	}
 
 	/*
-	 * 유권자 등록 (엑셀 업로드 구현해야함)
+	 * Voter Registration (Excel Upload Fail...)
 	 * MultipartHttpServletRequest request
 	 */
 //	@PostMapping("upload")

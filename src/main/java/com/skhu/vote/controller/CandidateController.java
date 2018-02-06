@@ -21,19 +21,19 @@ import com.skhu.vote.repository.CandidateRepository;
 import com.skhu.vote.service.CandidateService;
 
 /*
- * 후보자 관리 CRD
+ * Candidate Management CRD
  */
 
 @RestController
 @RequestMapping("candidate")
 public class CandidateController {
-	
+
 	@Autowired
 	CandidateService candidateService;
 	@Autowired
 	CandidateRepository candidateRepo;
 
-	// 후보자 전체 목록 조회
+	// All Candidate List
 	@GetMapping("list")
 	public ResponseEntity<DefaultResponse> candidateList() {
 		DefaultResponse response = new DefaultResponse();
@@ -42,8 +42,8 @@ public class CandidateController {
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
-	
-//	// 각 선거별 후보자 목록 조회
+
+//	// Selected Election's Candidate List
 //	@GetMapping("list/{voteId}")
 //	public ResponseEntity<DefaultResponse> candidateVoteList(@PathVariable int voteId) {
 //		DefaultResponse response = new DefaultResponse();
@@ -53,8 +53,8 @@ public class CandidateController {
 //		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 //	}
 
-	// 후보자 등록 (GET)
-	// 필요없다면 remove
+	// Candidate Registration (GET)
+	// Not Need -> Remove
 	@GetMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> candidateCreate(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
@@ -64,11 +64,11 @@ public class CandidateController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-	// 후보자 등록 (POST)
+	// Candidate Registration (POST)
 	@PostMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> candidateCreate(@RequestBody CandidateModel c, @PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
-		
+
 		List<CANDIDATE> list = candidateService.insertCandidate(c, voteId);
 		response.setData(list);
 		response.setMsg("후보자를 등록했습니다.");
@@ -76,11 +76,11 @@ public class CandidateController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-	// 후보자 삭제
+	// Candidate Delete
 //	@DeleteMapping("{candidateId}")
 //	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int candidateId) {
 //		DefaultResponse response = new DefaultResponse();
-//		
+//
 //		if (candidateService.findOne(candidateId) == null) {
 //			response.setMsg("해당 유권자는 존재하지 않습니다.");
 //			response.setStatus(StatusEnum.FAIL);
@@ -93,11 +93,12 @@ public class CandidateController {
 //			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 //		}
 //	}
-	
+
+	// Selected Election's Candidate Delete
 	@DeleteMapping("{voteId}/{candidateId}")
 	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int voteId, @PathVariable int candidateId) {
 		DefaultResponse response = new DefaultResponse();
-		
+
 		if (candidateService.findOne(candidateId) == null) {
 			response.setMsg("해당 유권자는 존재하지 않습니다.");
 			response.setStatus(StatusEnum.FAIL);

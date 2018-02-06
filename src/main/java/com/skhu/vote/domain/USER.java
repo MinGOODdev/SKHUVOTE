@@ -19,7 +19,7 @@ public class USER {
     @Id
     private String id;
     private String name;
-    private String userType;		// 일단 엑셀 업로드로 인해 String으로 타입 변경
+    private String userType;		// change
     private String tel;
     private int confirmCheck;
 

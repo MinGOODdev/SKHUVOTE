@@ -18,8 +18,8 @@ import com.skhu.vote.repository.VoteInfoRepository;
 import com.skhu.vote.service.VoteInfoService;
 
 /*
- * 선거 등록 (이름, 시간, 대상) CRD
- * 시간 제한 처리 ?
+ * Election Registration (voteName, startTime, endTime, target) CRD
+ * startTime, endTime Restrict
  */
 
 @RestController
@@ -31,7 +31,7 @@ public class ElectionController {
 	@Autowired
 	VoteInfoRepository voteInfoRepo;
 
-	// 선거 전체 목록 조회
+	// All Election List
 	@GetMapping("list")
 	public ResponseEntity<DefaultResponse> voteList() {
 		DefaultResponse response = new DefaultResponse();
@@ -40,8 +40,8 @@ public class ElectionController {
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
-	
-	// 선거별 목록 조회
+
+	// Selected Election's Detail Information
 	@GetMapping("list/{voteId}")
 	public ResponseEntity<DefaultResponse> voteDetailList(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
@@ -51,8 +51,8 @@ public class ElectionController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-	// 선거 등록 (GET)
-	// 필요없으면 remove
+	// Election Registration (GET)
+	// Not Need -> Remove
 	@GetMapping("create")
 	public ResponseEntity<DefaultResponse> voteCreate() {
 		DefaultResponse response = new DefaultResponse();
@@ -62,7 +62,7 @@ public class ElectionController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-	// 선거 등록 (POST)
+	// Election Registration (POST)
 	@PostMapping("create")
 	public ResponseEntity<DefaultResponse> voteCreate(@RequestBody VoteInfoModel v) {
 		DefaultResponse response = new DefaultResponse();
@@ -73,7 +73,7 @@ public class ElectionController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-	// 선거 삭제
+	// Election Delete
 	@DeleteMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> voteDelete(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();

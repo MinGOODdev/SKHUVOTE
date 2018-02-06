@@ -13,8 +13,8 @@ public class ADMIN {
 	@Id
     private String id;
 	private String name;
-	private	String password;		// DB VARCHAR(255)로 변경
+	private	String password;		// DB VARCHAR(255) change
 	private String departmentName;
-	private String type;			// 엑셀 업로드로 인해 변경
+	private String type;			// change
 	private Date lastLogin;
 }

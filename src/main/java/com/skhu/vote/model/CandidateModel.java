@@ -9,7 +9,7 @@ public class CandidateModel {
 	@NotEmpty
 	private String campName;
 
-	// 기권, 반대 등록을 위해 나머지 NotEmpty 주석 처리
+	// For abstention & opposite,  Remark
 //	@NotEmpty
 	private String leaderName;
 //	@NotEmpty
