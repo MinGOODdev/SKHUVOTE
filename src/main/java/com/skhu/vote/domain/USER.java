@@ -19,7 +19,7 @@ public class USER {
     @Id
     private String id;
     private String name;
-    private String userType;		// change
+    private int userType;
     private String tel;
     private int confirmCheck;
 

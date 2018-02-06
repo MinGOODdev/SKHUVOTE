@@ -25,8 +25,8 @@ public class UserExcelService {
 	public List<USER> excelUpload(java.io.File destFile) throws Exception {
 		ExcelReadOption excelReadOption = new ExcelReadOption();
 		excelReadOption.setFilePath(destFile.getAbsolutePath());
-		excelReadOption.setOutputCols("A", "B", "C", "D", "E");
-		// A: id, B: name, C: departmentId, D: userType, E: tel
+		excelReadOption.setOutputCols("A", "B", "C", "D");
+		// A: id, B: name, C: departmentId, D: tel
 		excelReadOption.setStartRow(1);
 
 		List<Map<String, String>> excelContent = ExcelRead.read(excelReadOption);
@@ -40,8 +40,8 @@ public class UserExcelService {
 			user.setId(content.get("A"));
 			user.setName(content.get("B"));
 			user.setDepartment(department);
-			user.setUserType(content.get("D"));
-			user.setTel(content.get("E"));
+			user.setTel(content.get("D"));
+			user.setUserType(1);
 			users.add(user);
 		}
 		return users;
