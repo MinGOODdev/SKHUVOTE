@@ -26,6 +26,7 @@ import com.skhu.vote.service.AdminService;
 
 /*
  * Election Organization Management CRD
+ * 선관위 관리 CRD
  */
 
 @RestController
@@ -40,6 +41,7 @@ public class AdminManageController {
 	AdminService adminService;
 
 	// Election Organization List
+	// 선관위 전체 목록
 	@GetMapping("list")
 	public ResponseEntity<DefaultResponse> userList() {
 		DefaultResponse response = new DefaultResponse();
@@ -50,6 +52,7 @@ public class AdminManageController {
 	}
 
 	// Election Organization Member Delete
+	// 선관위 삭제
 	@DeleteMapping("{id}")
 	public ResponseEntity<DefaultResponse> userDelete(@PathVariable String id) {
 		DefaultResponse response = new DefaultResponse();
@@ -68,6 +71,7 @@ public class AdminManageController {
 	}
 
 	// Election Organization Member Registration (Excel Upload)
+	// 선관위 등록 (엑셀 업로드)
 	@PostMapping("upload")
 	public ResponseEntity<DefaultResponse> upload(@RequestParam(value="file", required=true) MultipartFile excelFile, HttpServletRequest request) throws Exception {
 		DefaultResponse response = new DefaultResponse();

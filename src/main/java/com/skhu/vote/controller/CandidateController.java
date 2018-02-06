@@ -22,6 +22,7 @@ import com.skhu.vote.service.CandidateService;
 
 /*
  * Candidate Management CRD
+ * 후보자 관리 CRD
  */
 
 @RestController
@@ -34,6 +35,7 @@ public class CandidateController {
 	CandidateRepository candidateRepo;
 
 	// All Candidate List
+	// 전체 후보자 목록
 	@GetMapping("list")
 	public ResponseEntity<DefaultResponse> candidateList() {
 		DefaultResponse response = new DefaultResponse();
@@ -44,6 +46,7 @@ public class CandidateController {
 	}
 
 //	// Selected Election's Candidate List
+//	// 선거별 후보자 목록
 //	@GetMapping("list/{voteId}")
 //	public ResponseEntity<DefaultResponse> candidateVoteList(@PathVariable int voteId) {
 //		DefaultResponse response = new DefaultResponse();
@@ -55,6 +58,8 @@ public class CandidateController {
 
 	// Candidate Registration (GET)
 	// Not Need -> Remove
+	// 후보자 등록 (GET)
+	// 필요없다면 액션 메소드 삭제
 	@GetMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> candidateCreate(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
@@ -65,6 +70,7 @@ public class CandidateController {
 	}
 
 	// Candidate Registration (POST)
+	// 후보자 등록 (POST)
 	@PostMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> candidateCreate(@RequestBody CandidateModel c, @PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
@@ -77,6 +83,7 @@ public class CandidateController {
 	}
 
 	// Candidate Delete
+	// 후보자 삭제
 //	@DeleteMapping("{candidateId}")
 //	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int candidateId) {
 //		DefaultResponse response = new DefaultResponse();
@@ -95,6 +102,7 @@ public class CandidateController {
 //	}
 
 	// Selected Election's Candidate Delete
+	// 선거별 후보자 삭제
 	@DeleteMapping("{voteId}/{candidateId}")
 	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int voteId, @PathVariable int candidateId) {
 		DefaultResponse response = new DefaultResponse();

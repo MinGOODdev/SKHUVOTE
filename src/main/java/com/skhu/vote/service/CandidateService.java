@@ -32,6 +32,7 @@ public class CandidateService {
 		List<CANDIDATE> list = new ArrayList<>();
 
 		// Candidate Create
+		// 후보자 생성
 		CANDIDATE candidate = new CANDIDATE();
 		candidate.setCampName(c.getCampName());
 		candidate.setLeaderName(c.getLeaderName());
@@ -44,6 +45,7 @@ public class CandidateService {
 		list.add(candidate);
 
 		// Case: Single Candidate -> Opposite Create
+		// 단일 후보일 경우, 반대 자동 생성
 		if (candidateRepo.findByVoteInfoVoteId(voteId).size() < 2) {
 			CANDIDATE opposite = new CANDIDATE();
 			opposite.setCampName("반대");
@@ -52,6 +54,7 @@ public class CandidateService {
 			list.add(opposite);
 		}
 		// Continuous Candidate Registration -> Candidate Count > 1 -> Auto Delete Create
+		// 연속된 후보자 등록의 경우 반대가 필요없으므로 반대 자동 삭제
 		else if (candidateRepo.findByVoteInfoVoteId(voteId).size() > 1) {
 			if (candidateRepo.findByVoteInfoVoteIdAndCampName(voteId, "반대") != null) {
 				candidateRepo.delete(candidateRepo.findByVoteInfoVoteIdAndCampName(voteId, "반대"));
@@ -59,6 +62,7 @@ public class CandidateService {
 		}
 
 		// Not Exist Abstention -> Each Election Create Abstention
+		// 기권이 존재하지 않는다면, 선거별 기권 자동 생성
 		if (candidateRepo.findByVoteInfoVoteIdAndCampName(voteId, "기권") == null) {
 			CANDIDATE withdraw = new CANDIDATE();
 			withdraw.setCampName("기권");
@@ -87,6 +91,9 @@ public class CandidateService {
 		 *	Case 2: Candidate >= 2 -> Add Candidate -> In DB, Candidate >= 3 (Candidate1, Candidate2, Abstention)
 		 *	1. Add Candidate -> In DB, (Candidate1, Opposite, Abstention)
 		 *	2. Add Candidate -> In DB, (Candidate1, Candidate2, Abstention)
+		 *
+		 *	In conclusion, Add 2 candidates -> 1 candidate remove -> In DB, total (candidate1, Abstention)
+		 *	By the way, this case remain candidate only one -> need opposite -> so, auto create opposite. 
 		 */
 		if (candidateRepo.findByVoteInfoVoteId(voteId).size() < 3) {
 			CANDIDATE opposite = new CANDIDATE();

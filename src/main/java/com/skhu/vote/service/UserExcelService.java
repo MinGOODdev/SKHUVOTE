@@ -48,6 +48,7 @@ public class UserExcelService {
 	}
 
 	// 실제 사용시엔 종류별로 다 추가해야 한다.
+	// real use -> more add..
 	private int department(String depName) {
 		int depId = 0;
 		switch(depName) {

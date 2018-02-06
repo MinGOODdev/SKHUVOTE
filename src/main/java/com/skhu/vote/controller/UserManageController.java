@@ -26,6 +26,7 @@ import com.skhu.vote.service.UserService;
 
 /*
  * Voter CRD
+ * 유권자 CRD
  */
 
 @RestController
@@ -40,6 +41,7 @@ public class UserManageController {
 	UserExcelService excelService;
 
 	// Voter Registration (Excel Upload)
+	// 유권자 등록 (엑셀 업로드)
 	@PostMapping("upload")
 	public ResponseEntity<DefaultResponse> upload(@RequestParam(value="file", required=true) MultipartFile excelFile, HttpServletRequest request) throws Exception {
 		DefaultResponse response = new DefaultResponse();
@@ -72,6 +74,7 @@ public class UserManageController {
 	}
 
 	// Voter List
+	// 유권자 목록
 	@GetMapping("list")
 	public ResponseEntity<DefaultResponse> userList() {
 		DefaultResponse response = new DefaultResponse();
@@ -82,6 +85,7 @@ public class UserManageController {
 	}
 
 	// Voter Delete
+	// 유권자 삭제
 	@DeleteMapping("{id}")
 	public ResponseEntity<DefaultResponse> userDelete(@PathVariable String id) {
 		DefaultResponse response = new DefaultResponse();
@@ -102,6 +106,7 @@ public class UserManageController {
 	/*
 	 * Voter Registration (Excel Upload Fail...)
 	 * MultipartHttpServletRequest request
+	 * 유권자 등록 (엑셀 업로드 안됨..)
 	 */
 //	@PostMapping("upload")
 //	public ResponseEntity<DefaultResponse> upload(@RequestParam("file") MultipartFile excelFile) throws Exception {

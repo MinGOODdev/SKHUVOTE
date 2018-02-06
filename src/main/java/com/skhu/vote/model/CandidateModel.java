@@ -10,6 +10,7 @@ public class CandidateModel {
 	private String campName;
 
 	// For abstention & opposite,  Remark
+	// 반대, 기권 등록으로 인한 Not Empty 주석 처리
 //	@NotEmpty
 	private String leaderName;
 //	@NotEmpty
