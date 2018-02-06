@@ -21,30 +21,33 @@ public class ExcelService {
 	UserRepository userRepo;
 	@Autowired
 	DepartmentRepository depRepo;
-	
+
 	public List<USER> excelUpload(java.io.File destFile) throws Exception {
 		ExcelReadOption excelReadOption = new ExcelReadOption();
 		excelReadOption.setFilePath(destFile.getAbsolutePath());
-		excelReadOption.setOutputCols("A", "B", "C", "D");
-		excelReadOption.setStartRow(2);
-		
+		excelReadOption.setOutputCols("A", "B", "C", "D", "E");
+		// A: id, B: name, C: departmentId, D: userType, E: tel
+		excelReadOption.setStartRow(1);
+
 		List<Map<String, String>> excelContent = ExcelRead.read(excelReadOption);
+
 		List<USER> users = new ArrayList<>();
 		for(Map<String, String> content : excelContent) {
 			USER user = new USER();
-			
 			DEPARTMENT department = new DEPARTMENT();
 			department = depRepo.findOne(department(content.get("C")));
-			
+
 			user.setId(content.get("A"));
 			user.setName(content.get("B"));
 			user.setDepartment(department);
-			user.setTel(content.get("D"));
+			user.setUserType(content.get("D"));
+			user.setTel(content.get("E"));
 			users.add(user);
 		}
 		return users;
 	}
-	
+
+	// 실제 사용시엔 종류별로 다 추가해야 한다.
 	private int department(String depName) {
 		int depId = 0;
 		switch(depName) {
