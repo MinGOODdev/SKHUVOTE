@@ -65,7 +65,7 @@ public class UserManageController {
 		}
 
 		response.setData(users);
-		response.setMsg("엑설이 업로드되었습니다.");
+		response.setMsg("엑셀이 업로드되었습니다.");
 		response.setStatus(StatusEnum.SUCCESS);
 
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);

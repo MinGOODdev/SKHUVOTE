@@ -1,8 +1,9 @@
 package com.skhu.vote.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -68,7 +69,7 @@ public class AdminManageController {
 
 	// Election Organization Member Registration (Excel Upload)
 	@PostMapping("upload")
-	public ResponseEntity<DefaultResponse> upload(@RequestParam(value="file", required=true) MultipartFile excelFile) throws Exception {
+	public ResponseEntity<DefaultResponse> upload(@RequestParam(value="file", required=true) MultipartFile excelFile, HttpServletRequest request) throws Exception {
 		DefaultResponse response = new DefaultResponse();
 
 		// MultipartFile excelFile = request.getFile("excelFile");
@@ -76,7 +77,8 @@ public class AdminManageController {
 			throw new RuntimeException("엑셀 파일을 선택해주세요.");
 		}
 
-		File destFile = new File("D:\\" + excelFile.getOriginalFilename());		// D드라이브에 업로드한 파일 저장
+		java.io.File destFile = new java.io.File(request.getSession().getServletContext().getRealPath("resources")+"\\"+excelFile.getOriginalFilename());
+		// File destFile = new File("D:\\" + excelFile.getOriginalFilename());
 
 		try {
 			excelFile.transferTo(destFile);
@@ -91,7 +93,7 @@ public class AdminManageController {
 		}
 
 		response.setData(admins);
-		response.setMsg("엑설이 업로드되었습니다.");
+		response.setMsg("엑셀이 업로드되었습니다.");
 		response.setStatus(StatusEnum.SUCCESS);
 
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
