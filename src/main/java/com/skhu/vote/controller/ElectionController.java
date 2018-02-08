@@ -70,7 +70,7 @@ public class ElectionController {
 
 	// Election Registration (POST)
 	// 선거 등록 (POST)
-	@PostMapping("create")
+	@PostMapping("")
 	public ResponseEntity<DefaultResponse> voteCreate(@RequestBody VoteInfoModel v) {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(v);

@@ -13,6 +13,7 @@ import com.skhu.vote.model.DefaultResponse;
 import com.skhu.vote.model.LoginModel;
 import com.skhu.vote.model.StatusEnum;
 import com.skhu.vote.repository.AdminRepository;
+import com.skhu.vote.service.JwtService;
 import com.skhu.vote.service.SessionService;
 import com.skhu.vote.utils.SHA512EncryptUtils;
 
@@ -24,6 +25,8 @@ public class AdminController {
 	AdminRepository adminRepo;
 	@Autowired
 	SessionService sessionService;
+	@Autowired
+	JwtService jwtService;
 
 	@PostMapping("signin")
 	public ResponseEntity<DefaultResponse> signIn(@RequestBody LoginModel login) {
@@ -36,6 +39,10 @@ public class AdminController {
 		}
 		
 		if(admin.getPassword().equals(SHA512EncryptUtils.encrypt(login.getPassword()))) {
+			jwtService.createToken("admin", admin);
+			System.out.println("**************************"+jwtService.createToken("admin", admin));
+			System.out.println("**************************"+jwtService.isValid(jwtService.createToken("admin", admin)));
+			
 			// 세션이 없다면 세션 생성
 			if(!sessionService.isSession(login.getId())) {
 				sessionService.setSession(login.getId(), admin);
