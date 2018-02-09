@@ -2,6 +2,7 @@ package com.skhu.vote.service;
 
 import org.springframework.stereotype.Service;
 
+import com.skhu.vote.config.UnauthorizedException;
 import com.skhu.vote.utils.SHA512EncryptUtils;
 
 import io.jsonwebtoken.Claims;
@@ -31,7 +32,7 @@ public class JwtService {
 									.parseClaimsJws(jwt);
 			return true;
 		} catch (Exception e) {
-			return false;
+			throw new UnauthorizedException();
 		}
 	}
 	

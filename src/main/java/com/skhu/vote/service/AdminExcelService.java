@@ -18,8 +18,8 @@ public class AdminExcelService {
 	public List<ADMIN> excelUpload(java.io.File destFile) throws Exception {
 		ExcelReadOption excelReadOption = new ExcelReadOption();
 		excelReadOption.setFilePath(destFile.getAbsolutePath());
-		excelReadOption.setOutputCols("A", "B", "C", "D", "E");
 		// A: id, B: name, C: password, D: departmentName, E: type
+		excelReadOption.setOutputCols("A", "B", "C", "D", "E");
 		excelReadOption.setStartRow(1);
 
 		List<Map<String, String>> excelContent = ExcelRead.read(excelReadOption);

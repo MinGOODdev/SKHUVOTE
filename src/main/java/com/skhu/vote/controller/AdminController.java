@@ -1,5 +1,7 @@
 package com.skhu.vote.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import com.skhu.vote.utils.SHA512EncryptUtils;
 @RestController
 @RequestMapping("admin")
 public class AdminController {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	AdminRepository adminRepo;
@@ -40,8 +44,9 @@ public class AdminController {
 		
 		if(admin.getPassword().equals(SHA512EncryptUtils.encrypt(login.getPassword()))) {
 			jwtService.createToken("admin", admin);
-			System.out.println("**************************"+jwtService.createToken("admin", admin));
-			System.out.println("**************************"+jwtService.isValid(jwtService.createToken("admin", admin)));
+			
+			logger.info("createToken: {}", jwtService.createToken("admin", admin));
+			logger.info("isValid: {}", jwtService.isValid(jwtService.createToken("admin", admin)));
 			
 			// 세션이 없다면 세션 생성
 			if(!sessionService.isSession(login.getId())) {
