@@ -11,8 +11,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class JwtService {
-	
-	private static final String SALT = "Secret";
+		
+	private static final String SALT = "SeCReT";
 	
 	public <T> String createToken(String key, T data) {
 		String jwt = Jwts.builder()
