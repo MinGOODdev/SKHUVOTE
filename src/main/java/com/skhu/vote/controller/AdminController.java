@@ -43,29 +43,34 @@ public class AdminController {
 		}
 		
 		if(admin.getPassword().equals(SHA512EncryptUtils.encrypt(login.getPassword()))) {
-			jwtService.createToken("admin", admin);
-			
-			logger.info("createToken: {}", jwtService.createToken("admin", admin));
-			logger.info("isValid: {}", jwtService.isValid(jwtService.createToken("admin", admin)));
-			
-			// 세션이 없다면 세션 생성
-			if(!sessionService.isSession(login.getId())) {
-				sessionService.setSession(login.getId(), admin);
-				System.out.println(sessionService.getSession(login.getId()).toString());
+			// 해당 계정 세션이 존재하는 경우
+			if(sessionService.isSession(login.getId())) {
+				defResponse.setMsg("이미 로그인되어있습니다.");
 			}
-			
-			if(admin.getType().equals("2")) {
-				defResponse.setData(admin);
-				defResponse.setMsg("선관위원장으로 로그인하셨습니다.");
-				defResponse.setStatus(StatusEnum.SUCCESS);
-			}
+			// 해당 계정 세션이 존재하지 않는 경우
 			else {
-				defResponse.setData(admin);
-				defResponse.setMsg("선관위원으로 로그인하셨습니다.");
-				defResponse.setStatus(StatusEnum.SUCCESS);
+				jwtService.createToken("admin", admin);				// 토큰 생성
+				logger.info("createToken: {}", jwtService.createToken("admin", admin));
+				logger.info("isValid: {}", jwtService.isValid(jwtService.createToken("admin", admin)));
+				
+				sessionService.setSession(login.getId(), admin);	// 세션 생성
+				logger.info("login ID: {}", sessionService.getSession(login.getId()).toString());
+				
+				if(admin.getType().equals("2")) {
+					defResponse.setData(admin);
+					defResponse.setMsg("선관위원장으로 로그인하셨습니다.");
+					defResponse.setStatus(StatusEnum.SUCCESS);
+				}
+				else {
+					defResponse.setData(admin);
+					defResponse.setMsg("선관위원으로 로그인하셨습니다.");
+					defResponse.setStatus(StatusEnum.SUCCESS);
+				}
 			}
+			
 			return new ResponseEntity<DefaultResponse>(defResponse, HttpStatus.OK);
 		}
+		// Login Fail
 		else {
 			defResponse.setMsg("올바른 정보를 입력하세요.");
 			return new ResponseEntity<DefaultResponse>(defResponse, HttpStatus.OK);
