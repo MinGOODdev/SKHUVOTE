@@ -1,14 +1,20 @@
 package com.skhu.vote.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.skhu.vote.domain.ADMIN;
 import com.skhu.vote.model.DefaultResponse;
@@ -24,6 +30,7 @@ import com.skhu.vote.utils.SHA512EncryptUtils;
 public class AdminController {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	private static final String HEADER = "Authorization";
 
 	@Autowired
 	AdminRepository adminRepo;
@@ -33,7 +40,7 @@ public class AdminController {
 	JwtService jwtService;
 
 	@PostMapping("signin")
-	public ResponseEntity<DefaultResponse> signIn(@RequestBody LoginModel login) {
+	public ResponseEntity<DefaultResponse> signIn(@RequestBody LoginModel login, HttpServletResponse response) {
 		DefaultResponse defResponse = new DefaultResponse();
 		ADMIN admin = adminRepo.findOne(login.getId());
 		
@@ -45,16 +52,18 @@ public class AdminController {
 		if(admin.getPassword().equals(SHA512EncryptUtils.encrypt(login.getPassword()))) {
 			// 해당 계정 세션이 존재하는 경우
 			if(sessionService.isSession(login.getId())) {
-				defResponse.setMsg("이미 로그인되어있습니다.");
+				defResponse.setMsg("이미 로그인되어있습니다.");				
 			}
 			// 해당 계정 세션이 존재하지 않는 경우
 			else {
-				jwtService.createToken("admin", admin);				// 토큰 생성
-				logger.info("createToken: {}", jwtService.createToken("admin", admin));
-				logger.info("isValid: {}", jwtService.isValid(jwtService.createToken("admin", admin)));
+				String token = jwtService.createToken("admin", admin);				// 토큰 생성
+				response.setHeader("Authorization", token);
+				
+				logger.info("createToken: {}", token);
+				logger.info("isValid: {}", jwtService.isValid(token));
 				
 				sessionService.setSession(login.getId(), admin);	// 세션 생성
-				logger.info("login ID: {}", sessionService.getSession(login.getId()).toString());
+				logger.info("login ID: {}", sessionService.getSession(login.getId()).toString());				
 				
 				if(admin.getType().equals("2")) {
 					defResponse.setData(admin);
@@ -77,9 +86,16 @@ public class AdminController {
 		}
 	}
 	
-//	@GetMapping("signout")
-//	public ResponseEntity<DefaultResponse> signOut() {
-//		
-//	}
+	@GetMapping("signout")
+	public ResponseEntity<DefaultResponse> signOut(HttpServletRequest request) {
+		DefaultResponse response = new DefaultResponse();
+		
+		request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		sessionService.removeSession(jwtService.getAuthId("admin"));
+        sessionService.removeSession(request.getHeader(HEADER));
+		
+		response.setMsg("로그아웃 되었습니다.");
+		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
+	}
 
 }
