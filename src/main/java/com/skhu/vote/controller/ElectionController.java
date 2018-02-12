@@ -39,7 +39,7 @@ public class ElectionController {
 	public ResponseEntity<DefaultResponse> voteList() {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(voteInfoService.findAll());
-		response.setMsg("선거 목록입니다.");
+		response.setMsg("선거 목록.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
@@ -50,7 +50,7 @@ public class ElectionController {
 	public ResponseEntity<DefaultResponse> voteDetailList(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(voteInfoRepo.findByVoteId(voteId));
-		response.setMsg("선거별 정보입니다.");
+		response.setMsg("선거별 세부 정보.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
@@ -74,7 +74,7 @@ public class ElectionController {
 	public ResponseEntity<DefaultResponse> voteCreate(@RequestBody VoteInfoModel v) {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(v);
-		response.setMsg("선거를 등록했습니다.");
+		response.setMsg("선거를 등록 성공.");
 		response.setStatus(StatusEnum.SUCCESS);
 		voteInfoService.insertVoteInfo(v);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
@@ -90,7 +90,7 @@ public class ElectionController {
 			response.setStatus(StatusEnum.FAIL);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
 		} else {
-			response.setMsg("해당 선거가 삭제되었습니다.");
+			response.setMsg("해당 선거 삭제 성공.");
 			response.setStatus(StatusEnum.SUCCESS);
 			response.setData(voteInfoService.findOne(voteId));
 			voteInfoService.delete(voteId);

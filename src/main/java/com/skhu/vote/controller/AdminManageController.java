@@ -46,7 +46,7 @@ public class AdminManageController {
 	public ResponseEntity<DefaultResponse> userList() {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(adminService.findAll());
-		response.setMsg("선관위 목록입니다.");
+		response.setMsg("선관위 목록.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
@@ -58,7 +58,7 @@ public class AdminManageController {
 		DefaultResponse response = new DefaultResponse();
 
 		if (adminService.findOne(id) == null) {
-			response.setMsg("해당 선관위는 존재하지 않습니다.");
+			response.setMsg("해당 선관위가 존재하지 않습니다.");
 			response.setStatus(StatusEnum.FAIL);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
 		} else {
@@ -97,7 +97,7 @@ public class AdminManageController {
 		}
 
 		response.setData(admins);
-		response.setMsg("엑셀이 업로드되었습니다.");
+		response.setMsg("엑셀 업로드 성공");
 		response.setStatus(StatusEnum.SUCCESS);
 
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);

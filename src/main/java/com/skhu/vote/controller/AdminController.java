@@ -52,7 +52,7 @@ public class AdminController {
 		if(admin.getPassword().equals(SHA512EncryptUtils.encrypt(login.getPassword()))) {
 			// 해당 계정 세션이 존재하는 경우
 			if(sessionService.isSession(login.getId())) {
-				defResponse.setMsg("이미 로그인되어있습니다.");
+				defResponse.setMsg("이미 접속중.");
 			}
 			// 해당 계정 세션이 존재하지 않는 경우
 			else {
@@ -67,12 +67,12 @@ public class AdminController {
 
 				if(admin.getType().equals("2")) {
 					defResponse.setData(token);
-					defResponse.setMsg("선관위원장으로 로그인하셨습니다.");
+					defResponse.setMsg("선관위원장 로그인 성공.");
 					defResponse.setStatus(StatusEnum.SUCCESS);
 				}
 				else {
 					defResponse.setData(token);
-					defResponse.setMsg("선관위원으로 로그인하셨습니다.");
+					defResponse.setMsg("선관위원 로그인 성공.");
 					defResponse.setStatus(StatusEnum.SUCCESS);
 				}
 			}
@@ -96,7 +96,7 @@ public class AdminController {
 
         response.setData(jwtService.getTokenData("admin"));
         response.setStatus(StatusEnum.SUCCESS);
-		response.setMsg("로그아웃 되었습니다.");
+		response.setMsg("로그아웃 성공.");
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 

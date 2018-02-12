@@ -67,7 +67,7 @@ public class UserManageController {
 		}
 
 		response.setData(users);
-		response.setMsg("엑셀이 업로드되었습니다.");
+		response.setMsg("엑셀 업로드 성공.");
 		response.setStatus(StatusEnum.SUCCESS);
 
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
@@ -79,7 +79,7 @@ public class UserManageController {
 	public ResponseEntity<DefaultResponse> userList() {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(userService.findAll());
-		response.setMsg("유권자 목록입니다.");
+		response.setMsg("유권자 목록.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
@@ -95,7 +95,7 @@ public class UserManageController {
 			response.setStatus(StatusEnum.FAIL);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
 		} else {
-			response.setMsg("해당 유권자가 삭제되었습니다.");
+			response.setMsg("해당 유권자 삭제 성공.");
 			response.setStatus(StatusEnum.SUCCESS);
 			response.setData(userService.findOne(id));
 			userService.delete(id);

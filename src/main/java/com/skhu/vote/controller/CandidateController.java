@@ -40,7 +40,7 @@ public class CandidateController {
 	public ResponseEntity<DefaultResponse> candidateList() {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(candidateService.findAll());
-		response.setMsg("후보자 목록입니다.");
+		response.setMsg("후보자 목록.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
@@ -64,7 +64,7 @@ public class CandidateController {
 	public ResponseEntity<DefaultResponse> candidateCreate(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(new CandidateModel());
-		response.setMsg("후보자를 등록하려 합니다,");
+		response.setMsg("후보자를 등록하려 합니다.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
@@ -77,7 +77,7 @@ public class CandidateController {
 
 		List<CANDIDATE> list = candidateService.insertCandidate(c, voteId);
 		response.setData(list);
-		response.setMsg("후보자를 등록했습니다.");
+		response.setMsg("후보자를 등록 성공.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
@@ -112,7 +112,7 @@ public class CandidateController {
 			response.setStatus(StatusEnum.FAIL);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
 		} else {
-			response.setMsg("해당 유권자가 삭제되었습니다.");
+			response.setMsg("해당 유권자 삭제 성공.");
 			response.setStatus(StatusEnum.SUCCESS);
 			response.setData(candidateService.findOne(candidateId));
 			candidateService.delete(voteId, candidateId);
