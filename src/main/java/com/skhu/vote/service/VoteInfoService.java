@@ -22,6 +22,10 @@ public class VoteInfoService {
 	public VOTEINFO findOne(int voteId) {
 		return voteInfoRepo.findOne(voteId);
 	}
+	
+	public void update(VoteInfoModel v) {
+		voteInfoRepo.update(v.getVoteId(), v.getVoteName(), v.getStartTime(), v.getEndTime(), v.getTarget());
+	}
 
 	public VOTEINFO insertVoteInfo(VoteInfoModel v) {
 		VOTEINFO voteInfo = new VOTEINFO();

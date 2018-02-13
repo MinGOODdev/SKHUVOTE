@@ -1,5 +1,7 @@
 package com.skhu.vote.controller;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,6 +82,26 @@ public class ElectionController {
 		voteInfoService.insertVoteInfo(v);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
+	
+	// Election Update(POST)
+	// 등록된 선거 수정
+	@Transactional
+	@PutMapping("{voteId}")
+	public ResponseEntity<DefaultResponse> voteUpdate(@PathVariable int voteId, @RequestBody VoteInfoModel v) {
+		DefaultResponse response = new DefaultResponse();
+		if(voteInfoService.findOne(voteId) == null) {
+			response.setMsg("해당 선거 정보가 존재하지 않습니다.");
+			response.setStatus(StatusEnum.FAIL);
+			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
+		}
+		else {
+			response.setData(v);
+			response.setMsg("선거 수정 성공.");
+			response.setStatus(StatusEnum.SUCCESS);
+			voteInfoService.update(v);
+			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);	
+		}
+	}
 
 	// Election Delete
 	// 선거 삭제
@@ -88,8 +111,9 @@ public class ElectionController {
 		if (voteInfoService.findOne(voteId) == null) {
 			response.setMsg("해당 선거 정보가 존재하지 않습니다.");
 			response.setStatus(StatusEnum.FAIL);
-			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
-		} else {
+			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
+		} 
+		else {
 			response.setMsg("해당 선거 삭제 성공.");
 			response.setStatus(StatusEnum.SUCCESS);
 			response.setData(voteInfoService.findOne(voteId));
