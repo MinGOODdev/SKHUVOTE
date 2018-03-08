@@ -40,8 +40,8 @@ public class UserExcelService {
 			user.setId(content.get("A"));
 			user.setName(content.get("B"));
 			user.setDepartment(department);
-			user.setTel(content.get("D"));
 			user.setUserType(1);
+			user.setTel(content.get("D"));
 			users.add(user);
 		}
 		return users;

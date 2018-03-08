@@ -57,7 +57,8 @@ public class AdminController {
 			// 해당 계정 세션이 존재하지 않는 경우
 			else {
 				String token = jwtService.createToken("admin", admin);				// 토큰 생성
-				response.setHeader("Authorization", token);
+				response.setHeader(HEADER, token);
+//				sessionService.setSession(HEADER, token);
 
 				logger.info("createToken: {}", token);
 				logger.info("isValid: {}", jwtService.isValid(token));
@@ -93,6 +94,8 @@ public class AdminController {
 		request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		sessionService.removeSession(jwtService.getAuthId("admin"));
         sessionService.removeSession(request.getHeader(HEADER));
+
+        sessionService.removeSession("token");
 
         response.setData(jwtService.getTokenData("admin"));
         response.setStatus(StatusEnum.SUCCESS);

@@ -82,7 +82,7 @@ public class ElectionController {
 		voteInfoService.insertVoteInfo(v);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
-	
+
 	// Election Update(POST)
 	// 등록된 선거 수정
 	@Transactional
@@ -99,7 +99,7 @@ public class ElectionController {
 			response.setMsg("선거 수정 성공.");
 			response.setStatus(StatusEnum.SUCCESS);
 			voteInfoService.update(v);
-			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);	
+			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 		}
 	}
 
@@ -112,7 +112,7 @@ public class ElectionController {
 			response.setMsg("해당 선거 정보가 존재하지 않습니다.");
 			response.setStatus(StatusEnum.FAIL);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
-		} 
+		}
 		else {
 			response.setMsg("해당 선거 삭제 성공.");
 			response.setStatus(StatusEnum.SUCCESS);
