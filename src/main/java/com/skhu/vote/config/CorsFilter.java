@@ -40,9 +40,6 @@ public class CorsFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
     	// @TODO appKey가 유효한지 확인 후 열어줄 것 (After Confirm appKey Valid -> Open)
-
-    	logger.info("CORS");
-
         HttpServletResponse response = (HttpServletResponse) res;
 
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -50,9 +47,6 @@ public class CorsFilter implements Filter {
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, X-Requested-With, Origin, Content-Type, accept, authorization, X-Auth-Token");
         response.setHeader("Access-Control-Allow-Credentials", "false");
-
-        logger.info("CORS Configuration Completed");
-
         chain.doFilter(req, res);
     }
 

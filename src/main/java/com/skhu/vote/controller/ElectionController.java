@@ -77,7 +77,7 @@ public class ElectionController {
 	public ResponseEntity<DefaultResponse> voteCreate(@RequestBody VoteInfoModel v) {
 		DefaultResponse response = new DefaultResponse();
 		response.setData(v);
-		response.setMsg("선거를 등록 성공.");
+		response.setMsg("선거 등록 성공.");
 		response.setStatus(StatusEnum.SUCCESS);
 		voteInfoService.insertVoteInfo(v);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
