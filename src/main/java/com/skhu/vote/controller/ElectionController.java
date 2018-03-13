@@ -58,19 +58,6 @@ public class ElectionController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-	// Election Registration (GET)
-	// Not Need -> Remove
-	// 선거 등록 (GET)
-	// 필요없다면 액션 메소드 삭제
-	@GetMapping("create")
-	public ResponseEntity<DefaultResponse> voteCreate() {
-		DefaultResponse response = new DefaultResponse();
-		response.setData(new VoteInfoModel());
-		response.setMsg("선거를 등록하려 합니다.");
-		response.setStatus(StatusEnum.SUCCESS);
-		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
-	}
-
 	// Election Registration (POST)
 	// 선거 등록 (POST)
 	@PostMapping("")

@@ -28,8 +28,6 @@ public class UserService {
 		userRepo.delete(id);
 	}
 
-
-
 	public List<USER> findByDepartmentDepartmentId(int target) {
 		return userRepo.findByDepartmentDepartmentId(target);
 	}

@@ -56,19 +56,6 @@ public class CandidateController {
 //		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 //	}
 
-	// Candidate Registration (GET)
-	// Not Need -> Remove
-	// 후보자 등록 (GET)
-	// 필요없다면 액션 메소드 삭제
-	@GetMapping("{voteId}")
-	public ResponseEntity<DefaultResponse> candidateCreate(@PathVariable int voteId) {
-		DefaultResponse response = new DefaultResponse();
-		response.setData(new CandidateModel());
-		response.setMsg("후보자를 등록하려 합니다.");
-		response.setStatus(StatusEnum.SUCCESS);
-		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
-	}
-
 	// Candidate Registration (POST)
 	// 후보자 등록 (POST)
 	@PostMapping("{voteId}")
