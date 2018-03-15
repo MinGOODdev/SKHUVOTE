@@ -1,10 +1,14 @@
 package com.skhu.vote.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.skhu.vote.domain.CANDIDATE;
 import com.skhu.vote.model.CandidateModel;
@@ -14,10 +18,14 @@ import com.skhu.vote.repository.VoteInfoRepository;
 @Service
 public class CandidateService {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Autowired
 	CandidateRepository candidateRepo;
 	@Autowired
 	VoteInfoRepository voteInfoRepo;
+	@Autowired
+	FileUploadService fileUploadService;
 
 	public List<CANDIDATE> findAll() {
 		return candidateRepo.findAll();
@@ -27,7 +35,7 @@ public class CandidateService {
 		return candidateRepo.findOne(candidateId);
 	}
 
-	public List<CANDIDATE> insertCandidate(CandidateModel c, int voteId) {
+	public List<CANDIDATE> insertCandidate(CandidateModel c, int voteId, MultipartFile imageFile) throws IOException {
 
 		List<CANDIDATE> list = new ArrayList<>();
 
@@ -39,7 +47,7 @@ public class CandidateService {
 		candidate.setLeaderDeptName(c.getLeaderDepName());
 		candidate.setSubLeaderName(c.getSubLeaderName());
 		candidate.setSubLeaderDeptName(c.getSubLeaderDepName());
-		candidate.setPhoto(c.getPhoto());
+		candidate.setPhoto(fileUploadService.fileUpload(imageFile));
 		candidate.setVoteInfo(voteInfoRepo.findOne(voteId));
 		candidateRepo.save(candidate);
 		list.add(candidate);
@@ -93,7 +101,7 @@ public class CandidateService {
 		 *	2. Add Candidate -> In DB, (Candidate1, Candidate2, Abstention)
 		 *
 		 *	In conclusion, Add 2 candidates -> 1 candidate remove -> In DB, total (candidate1, Abstention)
-		 *	By the way, this case remain candidate only one -> need opposite -> so, auto create opposite. 
+		 *	By the way, this case remain candidate only one -> need opposite -> so, auto create opposite.
 		 */
 		if (candidateRepo.findByVoteInfoVoteId(voteId).size() < 3) {
 			CANDIDATE opposite = new CANDIDATE();

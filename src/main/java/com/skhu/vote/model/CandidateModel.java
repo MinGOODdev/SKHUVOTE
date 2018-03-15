@@ -6,19 +6,21 @@ import lombok.Data;
 
 @Data
 public class CandidateModel {
+
 	@NotEmpty
 	private String campName;
 
 	// For abstention & opposite,  Remark
 	// 반대, 기권 등록으로 인한 Not Empty 주석 처리
-//	@NotEmpty
+
+	// @NotEmpty
 	private String leaderName;
-//	@NotEmpty
+	// @NotEmpty
 	private String leaderDepName;
-//	@NotEmpty
+	// @NotEmpty
 	private String subLeaderName;
-//	@NotEmpty
+	// @NotEmpty
 	private String subLeaderDepName;
-//	@NotEmpty
+	// @NotEmpty
 	private String photo;
 }

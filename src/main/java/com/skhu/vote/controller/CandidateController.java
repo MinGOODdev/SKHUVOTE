@@ -1,7 +1,10 @@
 package com.skhu.vote.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,9 +12,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.skhu.vote.domain.CANDIDATE;
 import com.skhu.vote.model.CandidateModel;
@@ -29,6 +34,8 @@ import com.skhu.vote.service.CandidateService;
 @RequestMapping("candidate")
 public class CandidateController {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
+
 	@Autowired
 	CandidateService candidateService;
 	@Autowired
@@ -45,48 +52,19 @@ public class CandidateController {
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
 
-//	// Selected Election's Candidate List
-//	// 선거별 후보자 목록
-//	@GetMapping("list/{voteId}")
-//	public ResponseEntity<DefaultResponse> candidateVoteList(@PathVariable int voteId) {
-//		DefaultResponse response = new DefaultResponse();
-//		response.setData(candidateRepo.findByVoteInfoVoteId(voteId));
-//		response.setMsg("해당 선거별 후보자 목록입니다.");
-//		response.setStatus(StatusEnum.SUCCESS);
-//		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
-//	}
-
 	// Candidate Registration (POST)
 	// 후보자 등록 (POST)
+	@ResponseBody
 	@PostMapping("{voteId}")
-	public ResponseEntity<DefaultResponse> candidateCreate(@RequestBody CandidateModel c, @PathVariable int voteId) {
+	public ResponseEntity<DefaultResponse> candidateCreate(CandidateModel c, @PathVariable int voteId,
+														@RequestParam(value="file", required=false) MultipartFile imageFile) throws IOException {
 		DefaultResponse response = new DefaultResponse();
-
-		List<CANDIDATE> list = candidateService.insertCandidate(c, voteId);
+		List<CANDIDATE> list = candidateService.insertCandidate(c, voteId, imageFile);
 		response.setData(list);
-		response.setMsg("후보자를 등록 성공.");
+		response.setMsg("후보자 등록 성공.");
 		response.setStatus(StatusEnum.SUCCESS);
 		return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
 	}
-
-	// Candidate Delete
-	// 후보자 삭제
-//	@DeleteMapping("{candidateId}")
-//	public ResponseEntity<DefaultResponse> candidateDelete(@PathVariable int candidateId) {
-//		DefaultResponse response = new DefaultResponse();
-//
-//		if (candidateService.findOne(candidateId) == null) {
-//			response.setMsg("해당 유권자는 존재하지 않습니다.");
-//			response.setStatus(StatusEnum.FAIL);
-//			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
-//		} else {
-//			response.setMsg("해당 유권자가 삭제되었습니다.");
-//			response.setStatus(StatusEnum.SUCCESS);
-//			response.setData(candidateService.findOne(candidateId));
-//			candidateService.delete(candidateId);
-//			return new ResponseEntity<DefaultResponse>(response, HttpStatus.OK);
-//		}
-//	}
 
 	// Selected Election's Candidate Delete
 	// 선거별 후보자 삭제
@@ -95,7 +73,7 @@ public class CandidateController {
 		DefaultResponse response = new DefaultResponse();
 
 		if (candidateService.findOne(candidateId) == null) {
-			response.setMsg("해당 유권자는 존재하지 않습니다.");
+			response.setMsg("해당 유권자가 존재하지 않습니다.");
 			response.setStatus(StatusEnum.FAIL);
 			return new ResponseEntity<DefaultResponse>(response, HttpStatus.NO_CONTENT);
 		} else {
