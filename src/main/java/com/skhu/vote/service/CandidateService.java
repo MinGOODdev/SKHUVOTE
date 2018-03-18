@@ -1,6 +1,5 @@
 package com.skhu.vote.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.skhu.vote.domain.CANDIDATE;
 import com.skhu.vote.model.CandidateModel;
@@ -35,7 +33,7 @@ public class CandidateService {
 		return candidateRepo.findOne(candidateId);
 	}
 
-	public List<CANDIDATE> insertCandidate(CandidateModel c, int voteId, MultipartFile imageFile) throws IOException {
+	public List<CANDIDATE> insertCandidate(CandidateModel c, int voteId) {
 
 		List<CANDIDATE> list = new ArrayList<>();
 
@@ -47,7 +45,10 @@ public class CandidateService {
 		candidate.setLeaderDeptName(c.getLeaderDepName());
 		candidate.setSubLeaderName(c.getSubLeaderName());
 		candidate.setSubLeaderDeptName(c.getSubLeaderDepName());
-		candidate.setPhoto(fileUploadService.fileUpload(imageFile));
+
+//		candidate.setPhoto(fileUploadService.fileUpload(c.getPhoto()));
+//		logger.info("imageFile: {}", c.getPhoto());
+
 		candidate.setVoteInfo(voteInfoRepo.findOne(voteId));
 		candidateRepo.save(candidate);
 		list.add(candidate);
@@ -72,6 +73,14 @@ public class CandidateService {
 		// Not Exist Abstention -> Each Election Create Abstention
 		// 기권이 존재하지 않는다면, 선거별 기권 자동 생성
 		if (candidateRepo.findByVoteInfoVoteIdAndCampName(voteId, "기권") == null) {
+			CANDIDATE withdraw = new CANDIDATE();
+			withdraw.setCampName("기권");
+			withdraw.setVoteInfo(voteInfoRepo.findOne(voteId));
+			candidateRepo.save(withdraw);
+			list.add(withdraw);
+		}
+		else {
+			candidateRepo.delete(candidateRepo.findByVoteInfoVoteIdAndCampName(voteId, "기권"));
 			CANDIDATE withdraw = new CANDIDATE();
 			withdraw.setCampName("기권");
 			withdraw.setVoteInfo(voteInfoRepo.findOne(voteId));

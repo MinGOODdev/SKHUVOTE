@@ -27,7 +27,6 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String token = request.getHeader(HEADER);
-
 		if(token == null) return false;
 		else if(!jwtService.isValid(token)) return false;
 		else {
