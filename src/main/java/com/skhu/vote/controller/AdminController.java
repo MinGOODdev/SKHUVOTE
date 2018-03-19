@@ -58,10 +58,6 @@ public class AdminController {
 			else {
 				String token = jwtService.createToken("admin", admin);				// 토큰 생성
 				response.setHeader(HEADER, token);
-//				sessionService.setSession(HEADER, token);
-
-				logger.info("createToken: {}", token);
-				logger.info("isValid: {}", jwtService.isValid(token));
 
 				sessionService.setSession(login.getId(), admin);	// 세션 생성
 				logger.info("login ID: {}", sessionService.getSession(login.getId()).toString());
