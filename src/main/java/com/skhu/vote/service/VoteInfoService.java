@@ -8,14 +8,18 @@ import org.springframework.stereotype.Service;
 import com.skhu.vote.domain.VOTEINFO;
 import com.skhu.vote.model.VoteInfoModel;
 import com.skhu.vote.repository.VoteInfoRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class VoteInfoService {
 
 	@Autowired
-	VoteInfoRepository voteInfoRepo;
+	private VoteInfoRepository voteInfoRepo;
 	@Autowired
-	UserService userService;
+	private UserService userService;
+	@Autowired
+	private CandidateService candidateService;
 
 	public List<VOTEINFO> findAll() {
 		return voteInfoRepo.findAll();
@@ -40,7 +44,9 @@ public class VoteInfoService {
 		return voteInfo;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(int voteId) {
+		candidateService.deleteByVoteId(voteId);
 		voteInfoRepo.delete(voteId);
 	}
 }

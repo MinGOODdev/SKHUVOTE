@@ -32,9 +32,9 @@ import com.skhu.vote.service.VoteInfoService;
 public class ElectionController {
 
 	@Autowired
-	VoteInfoService voteInfoService;
+	private VoteInfoService voteInfoService;
 	@Autowired
-	VoteInfoRepository voteInfoRepo;
+	private VoteInfoRepository voteInfoRepo;
 
 	// All Election List
 	// 전체 선거 목록
@@ -92,6 +92,7 @@ public class ElectionController {
 
 	// Election Delete
 	// 선거 삭제
+	@Transactional
 	@DeleteMapping("{voteId}")
 	public ResponseEntity<DefaultResponse> voteDelete(@PathVariable int voteId) {
 		DefaultResponse response = new DefaultResponse();

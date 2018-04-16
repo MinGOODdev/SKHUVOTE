@@ -120,4 +120,8 @@ public class CandidateService {
 		}
 	}
 
+	public void deleteByVoteId(int voteId) {
+		candidateRepo.deleteByVoteId(voteId);
+	}
+
 }

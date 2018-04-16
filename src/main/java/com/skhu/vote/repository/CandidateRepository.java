@@ -8,7 +8,8 @@ import com.skhu.vote.domain.CANDIDATE;
 
 public interface CandidateRepository extends JpaRepository<CANDIDATE, Integer> {
 	
-	public CANDIDATE findByVoteInfoVoteIdAndCampName(int voteId, String campName);
-	public List<CANDIDATE> findByVoteInfoVoteId(int voteId);
+	CANDIDATE findByVoteInfoVoteIdAndCampName(int voteId, String campName);
+	List<CANDIDATE> findByVoteInfoVoteId(int voteId);
+	void deleteByVoteId(int voteId);
 	
 }
