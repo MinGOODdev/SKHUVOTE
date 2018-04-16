@@ -16,7 +16,7 @@ public class FileUploadService {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	S3Service s3Service;
+	private S3Service s3Service;
 
 	public String fileUpload(MultipartFile uploadFile) throws IOException {
 

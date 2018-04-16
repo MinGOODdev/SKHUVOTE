@@ -38,11 +38,11 @@ public class UserManageController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 	@Autowired
-	UserExcelService excelService;
+	private UserExcelService excelService;
 
 	// Voter Registration (Excel Upload)
 	// 유권자 등록 (엑셀 업로드)

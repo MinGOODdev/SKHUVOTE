@@ -14,7 +14,7 @@ public class UserService {
 	private static int allCount = 0;
 
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 
 	public List<USER> findAll() {
 		return userRepo.findAll();

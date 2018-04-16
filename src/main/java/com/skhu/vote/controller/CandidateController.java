@@ -34,9 +34,9 @@ public class CandidateController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	CandidateService candidateService;
+	private CandidateService candidateService;
 	@Autowired
-	CandidateRepository candidateRepo;
+	private CandidateRepository candidateRepo;
 
 	// All Candidate List
 	// 전체 후보자 목록

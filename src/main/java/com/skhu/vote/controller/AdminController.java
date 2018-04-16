@@ -33,11 +33,11 @@ public class AdminController {
 	private static final String HEADER = "Authorization";
 
 	@Autowired
-	AdminRepository adminRepo;
+	private AdminRepository adminRepo;
 	@Autowired
-	SessionService sessionService;
+	private SessionService sessionService;
 	@Autowired
-	JwtService jwtService;
+	private JwtService jwtService;
 
 	@PostMapping("signin")
 	public ResponseEntity<DefaultResponse> signIn(@RequestBody LoginModel login, HttpServletResponse response) {

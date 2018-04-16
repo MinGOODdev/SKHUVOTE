@@ -34,11 +34,11 @@ import com.skhu.vote.service.AdminService;
 public class AdminManageController {
 
 	@Autowired
-	AdminExcelService excelService;
+	private AdminExcelService excelService;
 	@Autowired
-	AdminRepository adminRepo;
+	private AdminRepository adminRepo;
 	@Autowired
-	AdminService adminService;
+	private AdminService adminService;
 
 	// Election Organization List
 	// 선관위 전체 목록

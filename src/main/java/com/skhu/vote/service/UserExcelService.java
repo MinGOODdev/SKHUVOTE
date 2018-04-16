@@ -18,9 +18,9 @@ import com.skhu.vote.utils.ExcelReadOption;
 public class UserExcelService {
 
 	@Autowired
-	UserRepository userRepo;
+	private UserRepository userRepo;
 	@Autowired
-	DepartmentRepository depRepo;
+	private DepartmentRepository depRepo;
 
 	public List<USER> excelUpload(java.io.File destFile) throws Exception {
 		ExcelReadOption excelReadOption = new ExcelReadOption();

@@ -12,7 +12,7 @@ import com.skhu.vote.repository.AdminRepository;
 public class AdminService {
 
 	@Autowired
-	AdminRepository adminRepo;
+	private AdminRepository adminRepo;
 
 	public List<ADMIN> findAll() {
 		return adminRepo.findAll();
