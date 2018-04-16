@@ -5,6 +5,7 @@
 프로젝트 기간 : 2017년 겨울방학<br/>
 API: https://github.com/MinGOODdev/SKHUVOTE/wiki<br/>
 ![Database](./img/skhuvoteDB.PNG)
+작품 제안서 : [SKHU VOTE SYSTEM 작품제안서](./document/skhuvote_manual.pdf)
 
 ## 시작하기
 
