@@ -3,7 +3,8 @@
 * 마이크로 서비스 아키텍쳐, 3개의 서비스 서버로 구성<br/>
 **선거 및 선관위 관리 시스템** / 투표 시스템 / 선거 정보 조회 시스템<br/>
 프로젝트 기간 : 2017년 겨울방학<br/>
-API: https://github.com/MinGOODdev/SKHUVOTE/wiki
+API: https://github.com/MinGOODdev/SKHUVOTE/wiki<br/>
+![Database](./img/skhuvoteDB.PNG)
 
 ## 시작하기
 
