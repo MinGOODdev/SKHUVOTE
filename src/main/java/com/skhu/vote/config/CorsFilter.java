@@ -1,18 +1,12 @@
 package com.skhu.vote.config;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /*
  * 요청이 들어오면 Filter -> Interceptor -> Controller 순서로 요청이 들어가게 되는데
@@ -35,28 +29,29 @@ import org.springframework.stereotype.Component;
 @Component
 public class CorsFilter implements Filter {
 
-	private static final Logger logger = LoggerFactory.getLogger(CorsFilter.class);
+  private static final Logger logger = LoggerFactory.getLogger(CorsFilter.class);
 
-    @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-    	// @TODO appKey가 유효한지 확인 후 열어줄 것 (After Confirm appKey Valid -> Open)
-        HttpServletResponse response = (HttpServletResponse) res;
+  @Override
+  public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+    // TODO appKey가 유효한지 확인 후 열어줄 것 (After Confirm appKey Valid -> Open)
+    HttpServletResponse response = (HttpServletResponse) res;
 
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, X-Requested-With, Origin, Content-Type, accept, authorization, X-Auth-Token, Content-Disposition");
-        response.setHeader("Access-Control-Allow-Credentials", "false");
-        chain.doFilter(req, res);
-    }
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+    response.setHeader("Access-Control-Max-Age", "3600");
+    response.setHeader("Access-Control-Allow-Headers", "X-PINGOTHER, X-Requested-With, Origin, Content-Type, accept, authorization, X-Auth-Token, Content-Disposition");
+    response.setHeader("Access-Control-Allow-Credentials", "false");
+    chain.doFilter(req, res);
+  }
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+  @Override
+  public void init(FilterConfig filterConfig) throws ServletException {
 
-    }
+  }
 
-    @Override
-    public void destroy() {
+  @Override
+  public void destroy() {
 
-    }
+  }
+
 }

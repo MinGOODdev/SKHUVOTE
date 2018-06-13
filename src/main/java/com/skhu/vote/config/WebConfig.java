@@ -8,19 +8,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-	private static final String[] EXCLUDE_PATHS = {
-			"/admin/signin"
-	};
+  private static final String[] EXCLUDE_PATHS = {
+          "/admin/signin"
+  };
 
-	@Autowired
-	JwtInterceptor jwtInterceptor;
+  @Autowired
+  private JwtInterceptor jwtInterceptor;
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor)
-				.addPathPatterns("/**")
-				.excludePathPatterns(EXCLUDE_PATHS);
-	}
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(jwtInterceptor)
+            .addPathPatterns("/**")
+            .excludePathPatterns(EXCLUDE_PATHS);
+  }
 
 //	@Override
 //	public void addCorsMappings(CorsRegistry registry) {
