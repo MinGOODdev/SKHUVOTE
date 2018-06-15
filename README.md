@@ -116,7 +116,8 @@
 * **조민국** - [MinGOODdev](https://github.com/MinGOODdev)
 
 ## 감사 인사
-
+* [배다슬](https://github.com/bghgu)
+* [정보석](https://github.com/jewelism)
 * [CORS](http://homoefficio.github.io/2015/07/21/Cross-Origin-Resource-Sharing/)
 * [Cross Domain API 서버 구성](https://www.popit.kr/corss-domain-api-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%84%B1/)
 * [HTTP 접근 제어(CORS)](https://developer.mozilla.org/ko/docs/Web/HTTP/Access_control_CORS)
