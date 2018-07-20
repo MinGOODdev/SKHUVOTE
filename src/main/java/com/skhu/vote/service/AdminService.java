@@ -11,19 +11,19 @@ import com.skhu.vote.repository.AdminRepository;
 @Service
 public class AdminService {
 
-	@Autowired
-	private AdminRepository adminRepo;
+  @Autowired
+  private AdminRepository adminRepo;
 
-	public List<ADMIN> findAll() {
-		return adminRepo.findAll();
-	}
+  public List<ADMIN> findAll() {
+    return adminRepo.findAll();
+  }
 
-	public ADMIN findOne(String id) {
-		return adminRepo.findOne(id);
-	}
+  public ADMIN findOne(String id) {
+    return adminRepo.findOne(id);
+  }
 
-	public void delete(String id) {
-		adminRepo.delete(id);
-	}
+  public void delete(String id) {
+    adminRepo.delete(id);
+  }
 
 }

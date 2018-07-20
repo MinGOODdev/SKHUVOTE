@@ -20,16 +20,17 @@ import lombok.ToString;
 @EqualsAndHashCode(exclude = "candidates")
 public class VOTEINFO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int voteId;
-    private String voteName;
-    private int allCount;
-    private int voteCount;
-    private Date startTime;
-    private Date endTime;
-    private int target;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int voteId;
+  private String voteName;
+  private int allCount;
+  private int voteCount;
+  private Date startTime;
+  private Date endTime;
+  private int target;
 
-    @OneToMany(mappedBy = "voteInfo", fetch = FetchType.EAGER)
-    List<CANDIDATE> candidates;
+  @OneToMany(mappedBy = "voteInfo", fetch = FetchType.EAGER)
+  List<CANDIDATE> candidates;
+
 }

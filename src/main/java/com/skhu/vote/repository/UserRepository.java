@@ -8,7 +8,8 @@ import com.skhu.vote.domain.USER;
 
 public interface UserRepository extends JpaRepository<USER, String> {
 
-	List<USER> findByDepartmentDepartmentId(int target);
-	int countByDepartmentDepartmentId(int target);
+  List<USER> findByDepartmentDepartmentId(int target);
+
+  int countByDepartmentDepartmentId(int target);
 
 }

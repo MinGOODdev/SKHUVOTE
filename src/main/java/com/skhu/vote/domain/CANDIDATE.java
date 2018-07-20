@@ -19,18 +19,19 @@ import lombok.ToString;
 @EqualsAndHashCode(exclude = "voteInfo")
 public class CANDIDATE {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int candidateId;
-    private String campName;
-    private String leaderName;
-    private String leaderDeptName;
-    private String subLeaderName;
-    private String subLeaderDeptName;
-    private String photo;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int candidateId;
+  private String campName;
+  private String leaderName;
+  private String leaderDeptName;
+  private String subLeaderName;
+  private String subLeaderDeptName;
+  private String photo;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "voteId")
-    VOTEINFO voteInfo;
+  @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "voteId")
+  VOTEINFO voteInfo;
+
 }

@@ -79,7 +79,8 @@ public class CandidateService {
       withdraw.setVoteInfo(voteInfoRepo.findOne(voteId));
       candidateRepo.save(withdraw);
       list.add(withdraw);
-    } else {
+    }
+    else {
       candidateRepo.delete(candidateRepo.findByVoteInfoVoteIdAndCampName(voteId, "기권"));
       CANDIDATE withdraw = new CANDIDATE();
       withdraw.setCampName("기권");

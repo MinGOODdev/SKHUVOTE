@@ -5,14 +5,14 @@ import lombok.Data;
 @Data
 public class DefaultResponse {
 
-    private StatusEnum status;
-    private Object data;
-    private String msg;
+  private StatusEnum status;
+  private Object data;
+  private String msg;
 
-    public DefaultResponse() {
-        this.status = StatusEnum.FAIL;
-        this.data = null;
-        this.msg = null;
-    }
+  public DefaultResponse() {
+    this.status = StatusEnum.FAIL;
+    this.data = null;
+    this.msg = null;
+  }
 
 }

@@ -10,11 +10,13 @@ import lombok.Data;
 @Data
 @Entity
 public class ADMIN {
-	@Id
-    private String id;
-	private String name;
-	private	String password;		// DB VARCHAR(255) change
-	private String departmentName;
-	private String type;			// change
-	private Date lastLogin;
+
+  @Id
+  private String id;
+  private String name;
+  private String password;
+  private String departmentName;
+  private String type;
+  private Date lastLogin;
+
 }

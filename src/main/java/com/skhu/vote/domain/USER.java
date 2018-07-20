@@ -16,14 +16,15 @@ import lombok.ToString;
 @ToString(exclude = "department")
 public class USER {
 
-    @Id
-    private String id;
-    private String name;
-    private int userType;
-    private String tel;
-    private int confirmCheck;
+  @Id
+  private String id;
+  private String name;
+  private int userType;
+  private String tel;
+  private int confirmCheck;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "departmentId")
-    DEPARTMENT department;
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "departmentId")
+  DEPARTMENT department;
+
 }
